@@ -35,7 +35,7 @@ jobs:
       - name: Terraform Apply 
         run: terraform apply -auto-approve -no-color
 
-      - name: Print EC2 IP
-        run: |
-          IP=$(terraform output -raw ec2_public_ip | tr -d '\r\n')
-          echo "EC2 Public IP: $IP"
+      # - name: Print EC2 IP
+      #   run: |
+      #     IP=$(terraform output -raw ec2_public_ip | tr -d '\r\n')
+      #     echo "EC2 Public IP: $IP"
