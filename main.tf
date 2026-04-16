@@ -44,6 +44,6 @@ resource "aws_instance" "my_instance" {
   }
 
   tags = {
-    Name = "Terraform-EC2-cicd-demo"
+    Name = "Terraform-EC2-cicd"
   }
 }

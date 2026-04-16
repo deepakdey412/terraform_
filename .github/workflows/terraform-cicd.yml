@@ -30,20 +30,12 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -no-color
 
       - name: Terraform Apply 
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -no-color
 
-      - name: Get EC2 IP
-        run: echo "EC2_IP=$(terraform output -raw ec2_public_ip)" >> $GITHUB_ENV
-
-      # # Optional SSH step
-      # - name: Setup SSH Key
-      #   run: |
-      #     echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-      #     chmod 400 key.pem
-
-      # - name: SSH and Deploy
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@$EC2_IP "echo Hello from CI/CD"
+      - name: Print EC2 IP
+        run: |
+          IP=$(terraform output -raw ec2_public_ip | tr -d '\r\n')
+          echo "EC2 Public IP: $IP"
