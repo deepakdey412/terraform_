@@ -22,6 +22,23 @@ resource "aws_instance" "my_instance" {
   vpc_security_group_ids = [
     data.aws_security_group.existing_sg.id
   ]
+  # EC2 AUTO SETUP
+  user_data = <<-EOF
+              #!/bin/bash
+              apt update -y
+
+              # Install Docker
+              apt install docker.io -y
+              systemctl start docker
+              systemctl enable docker
+
+              # Allow ubuntu user to use docker
+              usermod -aG docker ubuntu
+
+              # Install AWS CLI
+              apt install awscli -y
+
+              EOF
 
   root_block_device {
     volume_size = var.root_block_device_volume_size
