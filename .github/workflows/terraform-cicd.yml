@@ -43,7 +43,7 @@ jobs:
 
       # Artifact save for IP
       - name: Upload IP
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ec2-ip
           path: ip.txt
