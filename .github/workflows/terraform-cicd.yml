@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code 
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Terraform
@@ -32,10 +32,18 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -no-color
 
-      - name: Terraform Apply 
+      - name: Terraform Apply
         run: terraform apply -auto-approve -no-color
 
-      # - name: Print EC2 IP
+      # # 🔥 EC2 IP extract
+      # - name: Get EC2 IP
       #   run: |
-      #     IP=$(terraform output -raw ec2_public_ip | tr -d '\r\n')
-      #     echo "EC2 Public IP: $IP"
+      #     terraform output -raw ec2_public_ip > ip.txt
+      #     cat ip.txt
+
+      # # 🔥 Artifact save (dusre repo ke liye)
+      # - name: Upload IP
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: ec2-ip
+      #     path: ip.txt
