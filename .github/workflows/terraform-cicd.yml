@@ -35,15 +35,13 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve -no-color
 
-      # EC2 IP extract
+        # Get EC2 IP
       - name: Get EC2 IP
         run: |
           terraform output -raw ec2_public_ip > ip.txt
           cat ip.txt
 
-      # Artifact save for IP
-      - name: Upload IP
-        uses: actions/upload-artifact@v4
-        with:
-          name: ec2-ip
-          path: ip.txt
+      #  Upload to S3
+      - name: Upload IP to S3
+        run: |
+          aws s3 cp ip.txt s3://my-terraform-ip-bucket/ec2-ip.txt
